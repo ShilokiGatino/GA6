@@ -81,8 +81,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#quarto" id="toc-quarto" class="nav-link active" data-scroll-target="#quarto">Quarto</a></li>
-  <li><a href="#running-code" id="toc-running-code" class="nav-link" data-scroll-target="#running-code">Running Code</a></li>
+  <li><a href="#main-assignment" id="toc-main-assignment" class="nav-link active" data-scroll-target="#main-assignment"><strong>3 Main assignment:</strong></a>
+  <ul class="collapse">
+  <li><a href="#r-basics" id="toc-r-basics" class="nav-link" data-scroll-target="#r-basics">3.1 R Basics</a></li>
+  <li><a href="#data-wrangling" id="toc-data-wrangling" class="nav-link" data-scroll-target="#data-wrangling">3.2 Data wrangling</a></li>
+  <li><a href="#quarto-and-data-visualization" id="toc-quarto-and-data-visualization" class="nav-link" data-scroll-target="#quarto-and-data-visualization">3.3 Quarto and Data Visualization</a></li>
+  </ul></li>
   </ul>
 </nav>
 </div>
@@ -117,26 +121,444 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<section id="quarto" class="level2">
-<h2 class="anchored" data-anchor-id="quarto">Quarto</h2>
-<p>Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <a href="https://quarto.org" class="uri">https://quarto.org</a>.</p>
+<section id="main-assignment" class="level2">
+<h2 class="anchored" data-anchor-id="main-assignment"><strong>3 Main assignment:</strong></h2>
+<section id="r-basics" class="level3">
+<h3 class="anchored" data-anchor-id="r-basics">3.1 R Basics</h3>
+<ol type="1">
+<li><p>Create a character vector <code>fav_food</code> with five names of your favorite food. Replace third element of the vector with a bird name and extract first and fifth element.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>fav_food <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Sushi"</span>, <span class="st">"Chicken Makhani"</span>, <span class="st">"Mushroom Ravioli"</span>, <span class="st">"Mint Mocha Coffee"</span>, <span class="st">"Naan"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></li>
+<li><p>Load the <code>tidyverse</code> package. We have seen in the class that when we load the <code>tidyverse</code> package, we see many warnings. Use the code chunk option to hide the warning. Read your <code>metadata.tsv</code> file from the <code>garrigos-data/meta</code> directory and save it as object <code>metadata</code>. Write down the data structure of the <code>metadata</code>, number of variables, and rows.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.1     ✔ stringr   1.6.0
+✔ ggplot2   4.0.0     ✔ tibble    3.3.0
+✔ lubridate 1.9.4     ✔ tidyr     1.3.1
+✔ purrr     1.2.0     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>metadata <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="at">file =</span> <span class="st">"/fs/ess/PAS2880/users/bateman139/garrigos-data/metadata.tsv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 22 Columns: 3
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: "\t"
+chr (3): sample_id, time, treatment
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>metadata</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 22 × 3
+   sample_id   time  treatment  
+   &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;      
+ 1 ERR10802882 10dpi cathemerium
+ 2 ERR10802875 10dpi cathemerium
+ 3 ERR10802879 10dpi cathemerium
+ 4 ERR10802883 10dpi cathemerium
+ 5 ERR10802878 10dpi control    
+ 6 ERR10802884 10dpi control    
+ 7 ERR10802877 10dpi control    
+ 8 ERR10802881 10dpi control    
+ 9 ERR10802876 10dpi relictum   
+10 ERR10802880 10dpi relictum   
+# ℹ 12 more rows</code></pre>
+</div>
+</div>
+<p>Data structure: tibble (data frame)</p>
+<p>Number of variables: 3</p>
+<p>Number of rows: 22</p></li>
+<li><p>In the <code>metadata</code> object, replace the <code>dpi</code> with <code>_dpi</code> of the <code>time</code> variable and <code>cathemerium</code> with <code>cath</code> of the <code>treatment</code> variable.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>metadata <span class="ot">&lt;-</span> metadata<span class="sc">|&gt;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">time =</span> <span class="fu">sub</span>(<span class="at">pattern =</span> <span class="st">"dpi"</span>, <span class="at">replacement =</span> <span class="st">"_dpi"</span>, <span class="at">x =</span> time)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>metadata <span class="ot">&lt;-</span> metadata<span class="sc">|&gt;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">treatment =</span> <span class="fu">sub</span>(<span class="at">pattern =</span> <span class="st">"cathemerium"</span>, <span class="at">replacement =</span> <span class="st">"cath"</span>, <span class="at">x =</span> treatment)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(metadata)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 3
+  sample_id   time   treatment
+  &lt;chr&gt;       &lt;chr&gt;  &lt;chr&gt;    
+1 ERR10802882 10_dpi cath     
+2 ERR10802875 10_dpi cath     
+3 ERR10802879 10_dpi cath     
+4 ERR10802883 10_dpi cath     
+5 ERR10802878 10_dpi control  
+6 ERR10802884 10_dpi control  </code></pre>
+</div>
+</div>
 </section>
-<section id="running-code" class="level2">
-<h2 class="anchored" data-anchor-id="running-code">Running Code</h2>
-<p>When you click the <strong>Render</strong> button a document will be generated that includes both content and the output of embedded code. You can embed code like this:</p>
+<section id="data-wrangling" class="level3">
+<h3 class="anchored" data-anchor-id="data-wrangling">3.2 Data wrangling</h3>
+<p>Instead of creating new objects, always pipe your output unless explicitly stated.</p>
+<ol type="1">
+<li><p>List all the datasets available in the <code>ggplot2</code> package. Read the data from inbuilt- dataset <code>midwest</code>. Save it as an object <code>midwest_datasets</code> and use the <code>midwest_datasets</code> to answer all the question afterwards.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 2</code></pre>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="at">package =</span> <span class="st">"ggplot2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div>
-<p>You can add options to executable code like this</p>
+<pre><code>Data sets in package ‘ggplot2’:  
+diamonds                                     Prices of over 50,000 round cut diamonds
+economics                                    US economic time series
+economics_long                               US economic time series 
+faithfuld                                    2d density estimate of Old Faithful data
+luv_colours                                  'colors()' in Luv space 
+midwest                                      Midwest demographics 
+mpg                                          Fuel economy data from 1999 to 2008 for 38 popular models of cars 
+msleep                                       An updated and expanded version of the mammals sleep dataset 
+presidential                                 Terms of 12 presidents from Eisenhower to Trump 
+seals                                        Vector field of seal movements 
+txhousing                                    Housing sales in TX</code></pre>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>midwest_datasets <span class="ot">&lt;-</span> midwest</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></li>
+<li><p>Filter the rows with <code>poptotal &gt; 30000</code> and <code>popdensity &gt; 800</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(midwest_datasets)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 4</code></pre>
+<pre><code>tibble [437 × 28] (S3: tbl_df/tbl/data.frame)
+ $ PID                 : int [1:437] 561 562 563 564 565 566 567 568 569 570 ...
+ $ county              : chr [1:437] "ADAMS" "ALEXANDER" "BOND" "BOONE" ...
+ $ state               : chr [1:437] "IL" "IL" "IL" "IL" ...
+ $ area                : num [1:437] 0.052 0.014 0.022 0.017 0.018 0.05 0.017 0.027 0.024 0.058 ...
+ $ poptotal            : int [1:437] 66090 10626 14991 30806 5836 35688 5322 16805 13437 173025 ...
+ $ popdensity          : num [1:437] 1271 759 681 1812 324 ...
+ $ popwhite            : int [1:437] 63917 7054 14477 29344 5264 35157 5298 16519 13384 146506 ...
+ $ popblack            : int [1:437] 1702 3496 429 127 547 50 1 111 16 16559 ...
+ $ popamerindian       : int [1:437] 98 19 35 46 14 65 8 30 8 331 ...
+ $ popasian            : int [1:437] 249 48 16 150 5 195 15 61 23 8033 ...
+ $ popother            : int [1:437] 124 9 34 1139 6 221 0 84 6 1596 ...
+ $ percwhite           : num [1:437] 96.7 66.4 96.6 95.3 90.2 ...
+ $ percblack           : num [1:437] 2.575 32.9 2.862 0.412 9.373 ...
+ $ percamerindan       : num [1:437] 0.148 0.179 0.233 0.149 0.24 ...
+ $ percasian           : num [1:437] 0.3768 0.4517 0.1067 0.4869 0.0857 ...
+ $ percother           : num [1:437] 0.1876 0.0847 0.2268 3.6973 0.1028 ...
+ $ popadults           : int [1:437] 43298 6724 9669 19272 3979 23444 3583 11323 8825 95971 ...
+ $ perchsd             : num [1:437] 75.1 59.7 69.3 75.5 68.9 ...
+ $ percollege          : num [1:437] 19.6 11.2 17 17.3 14.5 ...
+ $ percprof            : num [1:437] 4.36 2.87 4.49 4.2 3.37 ...
+ $ poppovertyknown     : int [1:437] 63628 10529 14235 30337 4815 35107 5241 16455 13081 154934 ...
+ $ percpovertyknown    : num [1:437] 96.3 99.1 95 98.5 82.5 ...
+ $ percbelowpoverty    : num [1:437] 13.15 32.24 12.07 7.21 13.52 ...
+ $ percchildbelowpovert: num [1:437] 18 45.8 14 11.2 13 ...
+ $ percadultpoverty    : num [1:437] 11.01 27.39 10.85 5.54 11.14 ...
+ $ percelderlypoverty  : num [1:437] 12.44 25.23 12.7 6.22 19.2 ...
+ $ inmetro             : int [1:437] 0 0 0 1 0 0 0 0 0 1 ...
+ $ category            : chr [1:437] "AAR" "LHR" "AAR" "ALU" ...</code></pre>
+</div>
+</div></li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>midwest_datasets <span class="sc">|&gt;</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(poptotal <span class="sc">&gt;</span> <span class="dv">30000</span>, popdensity <span class="sc">&gt;</span> <span class="dv">800</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 234 × 28
+     PID county  state  area poptotal popdensity popwhite popblack popamerindian
+   &lt;int&gt; &lt;chr&gt;   &lt;chr&gt; &lt;dbl&gt;    &lt;int&gt;      &lt;dbl&gt;    &lt;int&gt;    &lt;int&gt;         &lt;int&gt;
+ 1   561 ADAMS   IL    0.052    66090      1271.    63917     1702            98
+ 2   564 BOONE   IL    0.017    30806      1812.    29344      127            46
+ 3   570 CHAMPA… IL    0.058   173025      2983.   146506    16559           331
+ 4   571 CHRIST… IL    0.042    34418       819.    34176       82            51
+ 5   574 CLINTON IL    0.029    33944      1170.    32688     1021            48
+ 6   575 COLES   IL    0.03     51644      1721.    50177      925            92
+ 7   576 COOK    IL    0.058  5105067     88018.  3204947  1317147         10289
+ 8   579 DE KALB IL    0.038    77932      2051.    72968     2069           123
+ 9   582 DU PAGE IL    0.02    781666     39083.   714905    15462           962
+10   585 EFFING… IL    0.028    31704      1132.    31523       12            45
+# ℹ 224 more rows
+# ℹ 19 more variables: popasian &lt;int&gt;, popother &lt;int&gt;, percwhite &lt;dbl&gt;,
+#   percblack &lt;dbl&gt;, percamerindan &lt;dbl&gt;, percasian &lt;dbl&gt;, percother &lt;dbl&gt;,
+#   popadults &lt;int&gt;, perchsd &lt;dbl&gt;, percollege &lt;dbl&gt;, percprof &lt;dbl&gt;,
+#   poppovertyknown &lt;int&gt;, percpovertyknown &lt;dbl&gt;, percbelowpoverty &lt;dbl&gt;,
+#   percchildbelowpovert &lt;dbl&gt;, percadultpoverty &lt;dbl&gt;,
+#   percelderlypoverty &lt;dbl&gt;, inmetro &lt;int&gt;, category &lt;chr&gt;</code></pre>
 </div>
 </div>
-<p>The <code>echo: false</code> option disables the printing of code (only output is displayed).</p>
+<ol start="3" type="1">
+<li><p>Select first 11 variables of the dataset. Create a new column named <code>asian_ameri</code> in <code>midwest_datasets</code> object by dividing <code>popasian</code> by <code>popamerindian</code> and sort <code>asian_ameri</code> in descending order. Save this output as <code>new_dataset</code> object</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a> new_dataset <span class="ot">&lt;-</span> midwest_datasets <span class="sc">|&gt;</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(poptotal <span class="sc">&gt;</span> <span class="dv">30000</span>, popdensity <span class="sc">&gt;</span> <span class="dv">800</span>) <span class="sc">|&gt;</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">11</span>) <span class="sc">|&gt;</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">asian_ameri =</span> popasian <span class="sc">/</span> popamerindian) <span class="sc">|&gt;</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(asian_ameri))</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a> new_dataset</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 234 × 12
+     PID county  state  area poptotal popdensity popwhite popblack popamerindian
+   &lt;int&gt; &lt;chr&gt;   &lt;chr&gt; &lt;dbl&gt;    &lt;int&gt;      &lt;dbl&gt;    &lt;int&gt;    &lt;int&gt;         &lt;int&gt;
+ 1   582 DU PAGE IL    0.02    781666     39083.   714905    15462           962
+ 2   570 CHAMPA… IL    0.058   173025      2983.   146506    16559           331
+ 3   599 JACKSON IL    0.036    61067      1696.    51991     6342           109
+ 4   576 COOK    IL    0.058  5105067     88018.  3204947  1317147         10289
+ 5   741 TIPPEC… IN    0.03    130598      4353.   122013     2660           320
+ 6   579 DE KALB IL    0.038    77932      2051.    72968     2069           123
+ 7   715 MONROE  IN    0.024   108978      4541.   102752     2835           216
+ 8   615 MCDONO… IL    0.034    35244      1037.    32992     1254            65
+ 9  1277 WASHTE… MI    0.041   282937      6901.   236390    31720          1076
+10   609 LAKE    IL    0.028   516418     18444.   450666    34771          1198
+# ℹ 224 more rows
+# ℹ 3 more variables: popasian &lt;int&gt;, popother &lt;int&gt;, asian_ameri &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<ol start="4" type="1">
+<li>Compute the total mean population per state and name the mean column as <code>poptotal</code>.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>new_dataset <span class="sc">|&gt;</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">group_by</span>(state) <span class="sc">|&gt;</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">poptotal =</span> <span class="fu">mean</span>(poptotal))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 2
+  state poptotal
+  &lt;chr&gt;    &lt;dbl&gt;
+1 IL     238312.
+2 IN      99446.
+3 MI     210809.
+4 OH     144208.
+5 WI     132759.</code></pre>
+</div>
+</div></li>
+</ol>
+</section>
+<section id="quarto-and-data-visualization" class="level3">
+<h3 class="anchored" data-anchor-id="quarto-and-data-visualization">3.3 Quarto and Data Visualization</h3>
+<p>In our class we created scatter plot, box plot and bar graph. For this assignment, you will create the violin plot by reading the ggplot2 documentation using the <code>midwest_datasets</code>.</p>
+<ol type="1">
+<li><p>Create the violin plot with <code>state</code> in x-axis and <code>area</code> in y-axis. Facet the plot based on the <code>category</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>midwest_datasets <span class="sc">|&gt;</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> state, <span class="at">y =</span> area)) <span class="sc">+</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>() <span class="sc">+</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_wrap</span>(<span class="fu">vars</span>(category))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Groups with fewer than two datapoints have been dropped.
+ℹ Set `drop = FALSE` to consider such groups for position adjustment purposes.
+Groups with fewer than two datapoints have been dropped.
+ℹ Set `drop = FALSE` to consider such groups for position adjustment purposes.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in max(data$density, na.rm = TRUE): no non-missing arguments to max;
+returning -Inf</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Computation failed in `stat_ydensity()`.
+Caused by error in `$&lt;-.data.frame`:
+! replacement has 1 row, data has 0</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Groups with fewer than two datapoints have been dropped.
+ℹ Set `drop = FALSE` to consider such groups for position adjustment purposes.
+Groups with fewer than two datapoints have been dropped.
+ℹ Set `drop = FALSE` to consider such groups for position adjustment purposes.
+Groups with fewer than two datapoints have been dropped.
+ℹ Set `drop = FALSE` to consider such groups for position adjustment purposes.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in max(data$density, na.rm = TRUE): no non-missing arguments to max;
+returning -Inf</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Computation failed in `stat_ydensity()`.
+Caused by error in `$&lt;-.data.frame`:
+! replacement has 1 row, data has 0</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Groups with fewer than two datapoints have been dropped.
+ℹ Set `drop = FALSE` to consider such groups for position adjustment purposes.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in max(data$density, na.rm = TRUE): no non-missing arguments to max;
+returning -Inf</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Computation failed in `stat_ydensity()`.
+Caused by error in `$&lt;-.data.frame`:
+! replacement has 1 row, data has 0</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Groups with fewer than two datapoints have been dropped.
+ℹ Set `drop = FALSE` to consider such groups for position adjustment purposes.
+Groups with fewer than two datapoints have been dropped.
+ℹ Set `drop = FALSE` to consider such groups for position adjustment purposes.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in max(data$density, na.rm = TRUE): no non-missing arguments to max;
+returning -Inf</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Computation failed in `stat_ydensity()`.
+Caused by error in `$&lt;-.data.frame`:
+! replacement has 1 row, data has 0</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Groups with fewer than two datapoints have been dropped.
+ℹ Set `drop = FALSE` to consider such groups for position adjustment purposes.
+Groups with fewer than two datapoints have been dropped.
+ℹ Set `drop = FALSE` to consider such groups for position adjustment purposes.
+Groups with fewer than two datapoints have been dropped.
+ℹ Set `drop = FALSE` to consider such groups for position adjustment purposes.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in max(data$density, na.rm = TRUE): no non-missing arguments to max;
+returning -Inf</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Computation failed in `stat_ydensity()`.
+Caused by error in `$&lt;-.data.frame`:
+! replacement has 1 row, data has 0</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Groups with fewer than two datapoints have been dropped.
+ℹ Set `drop = FALSE` to consider such groups for position adjustment purposes.
+Groups with fewer than two datapoints have been dropped.
+ℹ Set `drop = FALSE` to consider such groups for position adjustment purposes.
+Groups with fewer than two datapoints have been dropped.
+ℹ Set `drop = FALSE` to consider such groups for position adjustment purposes.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in max(data$density, na.rm = TRUE): no non-missing arguments to max;
+returning -Inf</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Computation failed in `stat_ydensity()`.
+Caused by error in `$&lt;-.data.frame`:
+! replacement has 1 row, data has 0</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in min(x): no non-missing arguments to min; returning Inf</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in max(x): no non-missing arguments to max; returning -Inf</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in min(d[d &gt; tolerance]): no non-missing arguments to min; returning
+Inf</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in min(x): no non-missing arguments to min; returning Inf</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in max(x): no non-missing arguments to max; returning -Inf</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in min(d[d &gt; tolerance]): no non-missing arguments to min; returning
+Inf</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in min(x): no non-missing arguments to min; returning Inf</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in max(x): no non-missing arguments to max; returning -Inf</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in min(d[d &gt; tolerance]): no non-missing arguments to min; returning
+Inf</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in min(x): no non-missing arguments to min; returning Inf</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in max(x): no non-missing arguments to max; returning -Inf</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in min(d[d &gt; tolerance]): no non-missing arguments to min; returning
+Inf</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in min(x): no non-missing arguments to min; returning Inf</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in max(x): no non-missing arguments to max; returning -Inf</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in min(d[d &gt; tolerance]): no non-missing arguments to min; returning
+Inf</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in min(x): no non-missing arguments to min; returning Inf</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in max(x): no non-missing arguments to max; returning -Inf</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in min(d[d &gt; tolerance]): no non-missing arguments to min; returning
+Inf</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="GA6_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
+</div>
+</div></li>
+<li><p>Create a violin plot again with <code>state</code> in x-axis and <code>poptotal</code> in y-axis. Add the jitter points on the plot and color just the points based on the <code>category</code>. Is this point color global or local mapping? please explain.</p></li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>midwest_datasets <span class="sc">|&gt;</span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> state, <span class="at">y =</span> poptotal, )) <span class="sc">+</span></span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>() <span class="sc">+</span></span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="fu">aes</span>(<span class="at">color=</span>category))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="GA6_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>violin_plot <span class="ot">&lt;-</span> midwest_datasets <span class="sc">|&gt;</span></span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> state, <span class="at">y =</span> poptotal)) <span class="sc">+</span></span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>(<span class="fu">aes</span>(<span class="at">fill =</span> state)) <span class="sc">+</span></span>
+<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="fu">aes</span>(<span class="at">color =</span> category)) <span class="sc">+</span></span>
+<span id="cb61-5"><a href="#cb61-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"red"</span>, <span class="st">"blue"</span>, <span class="st">"green"</span>, <span class="st">"orange"</span>, <span class="st">"purple"</span>)) <span class="sc">+</span></span>
+<span id="cb61-6"><a href="#cb61-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li><p>It would be local mapping at <code>color=category</code> is inside aes() in geom_jitter(). If it where glocal it would be in ggplot(aes()). The color is only being applied to category. If it were global, it would be applied to everything.</p>
+<ol start="3" type="1">
+<li>In the above plot change the theme to <code>theme_bw</code> and color the <code>state</code> manually instead of using default colors. Add the title of the plot using the <strong>code chunk options</strong>. Save this plot as an object <code>violin_plot</code>.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>violin_plot <span class="ot">&lt;-</span> midwest_datasets <span class="sc">|&gt;</span></span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> state, <span class="at">y =</span> poptotal)) <span class="sc">+</span></span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>(<span class="fu">aes</span>(<span class="at">fill =</span> state)) <span class="sc">+</span></span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="fu">aes</span>(<span class="at">color =</span> category)) <span class="sc">+</span></span>
+<span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"red"</span>, <span class="st">"blue"</span>, <span class="st">"green"</span>, <span class="st">"orange"</span>, <span class="st">"purple"</span>)) <span class="sc">+</span></span>
+<span id="cb62-6"><a href="#cb62-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span>
+<span id="cb62-7"><a href="#cb62-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Violin Plot of Population per State"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;ggplot2::labels&gt; List of 1
+ $ title: chr "Violin Plot of Population per State"</code></pre>
+</div>
+</div>
+<ol start="3" type="1">
+<li>Export the <code>violin_plot</code> and label it as <code>violoin_plot.png</code> in your current working repository.</li>
+</ol></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">filename =</span> <span class="st">"violoin_plot.png"</span>, <span class="at">plot =</span> violin_plot)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Saving 7 x 5 in image</code></pre>
+</div>
+</div>
+</section>
 </section>
 
 </main>
